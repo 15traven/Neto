@@ -128,10 +128,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="helpers.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tray_icon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="helpers.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="tray_icon.h" />
   </ItemGroup>

@@ -108,7 +108,7 @@ namespace TrayIcon
 	void start()
 	{
 		HINSTANCE h_instance = reinterpret_cast<HINSTANCE>(&__ImageBase);
-		HICON icon = LoadIcon(h_instance, MAKEINTRESOURCE(APPICON));
+		HICON icon = LoadIcon(h_instance, MAKEINTRESOURCE(APPICON_CONNECTED));
 		if (icon)
 		{
 			UINT id_tray_icon = 1;
@@ -154,5 +154,23 @@ namespace TrayIcon
 		{
 			SendMessage(tray_icon_hwnd, WM_CLOSE, 0, 0);
 		}
+	}
+
+	void change_icon(bool isConnected)
+	{
+		HICON icon;
+		HINSTANCE h_instance = reinterpret_cast<HINSTANCE>(&__ImageBase);
+
+		if (isConnected)
+		{
+			icon = LoadIcon(h_instance, MAKEINTRESOURCE(APPICON_CONNECTED));
+		}
+		else
+		{
+			icon = LoadIcon(h_instance, MAKEINTRESOURCE(APPICON_DISCONNECTED));
+		}
+
+		tray_icon_data.hIcon = icon;
+		tray_icon_created = Shell_NotifyIcon(NIM_MODIFY, &tray_icon_data) == TRUE;
 	}
 }

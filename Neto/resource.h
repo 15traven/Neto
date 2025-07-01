@@ -13,7 +13,8 @@
 #endif
 #endif
 
-#define APPICON                         101
-#define ID_TRAY_MENU                    102
+#define APPICON_CONNECTED               101
+#define APPICON_DISCONNECTED            102
+#define ID_TRAY_MENU                    103
 #define ID_EXIT_MENU_COMMAND            40001
 
