@@ -89,7 +89,7 @@ namespace
 					POINT mouse_pointer;
 					GetCursorPos(&mouse_pointer);
 					SetForegroundWindow(window);
-					TrackPopupMenu(h_sub_menu, TPM_CENTERALIGN | TPM_BOTTOMALIGN, mouse_pointer.x, mouse_pointer.y, 0, window, nullptr);
+					TrackPopupMenuEx(h_sub_menu, TPM_CENTERALIGN | TPM_BOTTOMALIGN, mouse_pointer.x, mouse_pointer.y, window, 0);
 					break;
 				}
 			}
