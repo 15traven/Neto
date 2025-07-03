@@ -1,10 +1,7 @@
 #include "resource.h"
 #include "tray_icon.h"
-#include "helpers.h"
 #include <Windows.h>
 #include <winrt/base.h>
-
-using namespace std;
 
 extern "C" IMAGE_DOS_HEADER __ImageBase;
 
@@ -36,11 +33,6 @@ namespace
 				DestroyMenu(h_menu);
 			}
 			DestroyWindow(window);
-			break;
-		case ID_SETTINGS_MENU_COMMAND:
-			thread([]() {
-				Helpers::show_settings();
-			}).detach();
 			break;
 		}
 	}
