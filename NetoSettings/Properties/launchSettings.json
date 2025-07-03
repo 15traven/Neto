@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NetoSettings (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "NetoSettings (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <curl/curl.h>
 
+using namespace std;
+
 namespace
 {
 	bool check_url(const std::string url)
@@ -36,6 +38,44 @@ namespace Helpers {
 
 			TrayIcon::change_icon(status);
 			Sleep(10000);
+		}
+	}
+
+	void show_settings()
+	{
+		STARTUPINFO startup_info = { sizeof(startup_info) };
+		PROCESS_INFORMATION process_info = { 0 };
+		
+		wstring executable_path = L"NetoSettings.exe";
+		WCHAR command_line[MAX_PATH];
+		wcscpy_s(command_line, executable_path.c_str());
+
+		BOOL result = CreateProcessW(
+			nullptr,
+			command_line,
+			nullptr,
+			nullptr,
+			FALSE,
+			0,
+			nullptr,
+			nullptr,
+			&startup_info,
+			&process_info);
+
+		if (result)
+		{
+			if (process_info.hProcess)
+			{
+				CloseHandle(process_info.hProcess);
+			}
+			if (process_info.hThread)
+			{
+				CloseHandle(process_info.hThread);
+			}
+		}
+		else
+		{
+			MessageBoxW(nullptr, L"Failed to launch settings window", L"Error", MB_ICONERROR);
 		}
 	}
 }
