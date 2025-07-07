@@ -34,6 +34,40 @@ namespace
 			}
 			DestroyWindow(window);
 			break;
+		case ID_HISTORY_MENU_COMMAND:
+			STARTUPINFO startup_info{ sizeof(startup_info) };
+			PROCESS_INFORMATION process_info{};
+			LPCWSTR exe_path = L"Neto.History.exe";
+
+			WCHAR command_line[MAX_PATH];
+			wcscpy_s(command_line, exe_path);
+
+			BOOL result = CreateProcessW(
+				nullptr,
+				command_line,
+				nullptr,
+				nullptr,
+				FALSE,
+				0,
+				nullptr,
+				nullptr,
+				&startup_info,
+				&process_info
+			);
+
+			if (result)
+			{
+				if (process_info.hProcess)
+				{
+					CloseHandle(process_info.hProcess);
+				}
+				if (process_info.hThread)
+				{
+					CloseHandle(process_info.hThread);
+				}
+			}
+
+			break;
 		}
 	}
 

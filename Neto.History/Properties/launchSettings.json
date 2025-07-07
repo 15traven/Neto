@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Neto.History (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Neto.History (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
