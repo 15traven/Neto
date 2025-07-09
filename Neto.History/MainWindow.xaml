@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ex="using:WinUIEx"
+    xmlns:tv="using:WinUI.TableView"
     mc:Ignorable="d"
     Title="Neto.History"
     Width="400"
@@ -14,13 +15,64 @@
     IsAlwaysOnTop="True"
     IsMaximizable="False"
     IsMinimizable="False"
-    IsResizable="False">
+    IsResizable="False"
+    IsShownInSwitchers="False">
 
     <Window.SystemBackdrop>
-        <DesktopAcrylicBackdrop />
+        <MicaBackdrop />
     </Window.SystemBackdrop>
-    
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="Hello" />
-    </StackPanel>
+
+    <Grid>
+        <Grid.Resources>
+            <local:BoolToIconConverteer x:Key="BoolToIconConverter"/>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <tv:TableView x:Name="HistoryTable"
+                      ItemsSource="{x:Bind ViewModel.Records}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="None"
+                      CornerButtonMode="None"
+                      CanSortColumns="False"
+                      CanFilterColumns="False"
+                      HeaderGridLinesVisibility="None"
+                      GridLinesVisibility="Horizontal">
+            <tv:TableView.Columns> 
+                <tv:TableViewTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                <tv:TableViewTextColumn Header="Time" Binding="{Binding Time}" Width="*"/>
+                <tv:TableViewTemplateColumn Header="Status" Width="*">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <FontIcon Glyph="{Binding Status, Converter={StaticResource BoolToIconConverter}}" 
+                                      HorizontalAlignment="Left"
+                                      Margin="20, 0"/>
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
+            </tv:TableView.Columns>
+        </tv:TableView>
+
+        <Grid Grid.Row="1" ColumnSpacing="8" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="ClearHistoryButton" 
+                    Click="ClearHistoryButton_Click" 
+                    HorizontalAlignment="Stretch">
+                Clear history
+            </Button>
+            <Button Grid.Column="1" 
+                    x:Name="LoadHistoryButton"
+                    Click="LoadHistoryButton_Click">
+                <FontIcon Glyph="&#xE72C;" />
+            </Button>
+        </Grid>
+    </Grid>
 </ex:WindowEx>
